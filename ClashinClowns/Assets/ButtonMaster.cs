@@ -6,16 +6,6 @@ using UnityEngine.SceneManagement;
 public class ButtonMaster : MonoBehaviour
 {
  
-    void Start()
-    {
-        
-    }
-
- 
-    void Update()
-    {
-        
-    }
 
     public void ChangeScene()
     {
