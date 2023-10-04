@@ -7,7 +7,7 @@ public class CharacterHealth : MonoBehaviour
     public int maxHealth = 3; // Adjust this to set the maximum health for each character.
     public int damageAmount = 1; // Adjust this to set the damage amount per hit.
 
-    private int currentHealth;
+    [SerializeField] private int currentHealth;
 
     private void Start()
     {
