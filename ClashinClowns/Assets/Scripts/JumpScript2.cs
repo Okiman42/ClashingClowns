@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpScript2 : MonoBehaviour
+public class JumpScript : MonoBehaviour
 {
     [SerializeField] private float jumpingPower;
 
@@ -11,12 +11,12 @@ public class JumpScript2 : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.UpArrow) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && rb.velocity.y > 0f)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
