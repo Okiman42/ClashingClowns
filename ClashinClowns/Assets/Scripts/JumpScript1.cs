@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpScript2 : MonoBehaviour
+public class JumpScript1 : MonoBehaviour
 {
     [SerializeField] private float jumpingPower;
 
