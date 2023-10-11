@@ -8,6 +8,8 @@ public class CharacterAttack : MonoBehaviour
 
     private string myTag; // Store the tag of the current character.
 
+
+
     private void Start()
     {
         myTag = gameObject.tag; // Get the tag of the current character.
@@ -30,8 +32,11 @@ public class CharacterAttack : MonoBehaviour
     // Function to perform the character's attack.
     private void Attack()
     {
-        // Cast a ray forward to detect if there's an enemy character in front.
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 1f, targetLayer);
+        Vector2 attackDirection = (myTag == "Character2") ? Vector2.left : Vector2.right;
+
+        // Cast a ray in the determined direction to detect if there's an enemy character.
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, attackDirection, 1f, targetLayer);
+        
 
         if (hit.collider != null)
         {
