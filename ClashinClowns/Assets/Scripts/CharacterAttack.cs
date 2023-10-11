@@ -7,10 +7,13 @@ public class CharacterAttack : MonoBehaviour
     public LayerMask targetLayer; // Adjust this to define which layers represent the enemy characters.
 
     private string myTag; // Store the tag of the current character.
+    private Animator myAnimator; // Reference to the Animator component.
 
     private void Start()
     {
         myTag = gameObject.tag; // Get the tag of the current character.
+
+        myAnimator = GetComponent<Animator>(); // Get the Animator component
     }
 
     private void Update()
@@ -30,8 +33,15 @@ public class CharacterAttack : MonoBehaviour
     // Function to perform the character's attack.
     private void Attack()
     {
-        // Cast a ray forward to detect if there's an enemy character in front.
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 1f, targetLayer);
+
+        // Play the attack animation by setting the "Attack" trigger.
+        myAnimator.SetTrigger("Attack");
+
+        Vector2 attackDirection = (myTag == "Character2") ? Vector2.left : Vector2.right;
+
+        // Cast a ray in the determined direction to detect if there's an enemy character.
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, attackDirection, 1f, targetLayer);
+        
 
         if (hit.collider != null)
         {

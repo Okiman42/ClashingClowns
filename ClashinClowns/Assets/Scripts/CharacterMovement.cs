@@ -10,6 +10,9 @@ public class CharacterMovement : MonoBehaviour
     private Transform characterTransform;
     private bool facingRight = true;
 
+    private SpriteRenderer spriteRenderer;
+    //private bool facingRight = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -55,6 +58,23 @@ public class CharacterMovement : MonoBehaviour
             newScale.x *= -1;
             characterTransform.localScale = newScale;
         }
+
+        if (rb.velocity.x > 0f)
+        {
+            Debug.Log("Character flipped");
+            FlipCharacter();
+        }
     }
 
+<<<<<<< HEAD
+=======
+    private void FlipCharacter()
+    {
+        //facingRight = !facingRight;
+        //spriteRenderer.flipX = !spriteRenderer.flipX;
+        
+           
+    }
+
+>>>>>>> b8eb711ea4c676de67dffe98615b9f25a737e938
 }

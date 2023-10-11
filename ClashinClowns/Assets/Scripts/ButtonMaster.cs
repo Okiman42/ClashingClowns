@@ -5,7 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class ButtonMaster : MonoBehaviour
 {
- 
+    public void Update()
+    {
+        Mainmenu();
+    }
+
+    public void Mainmenu()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+            SceneManager.LoadScene(0);
+    }
 
     public void ChangeScene()
     {
