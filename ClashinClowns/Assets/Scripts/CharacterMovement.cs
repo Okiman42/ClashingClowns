@@ -8,6 +8,9 @@ public class CharacterMovement : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private SpriteRenderer spriteRenderer;
+    //private bool facingRight = true;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,5 +34,20 @@ public class CharacterMovement : MonoBehaviour
             Vector2 newVelocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
             rb.velocity = newVelocity;
         }
+
+        if (rb.velocity.x > 0f)
+        {
+            Debug.Log("Character flipped");
+            FlipCharacter();
+        }
     }
+
+    private void FlipCharacter()
+    {
+        //facingRight = !facingRight;
+        //spriteRenderer.flipX = !spriteRenderer.flipX;
+        
+           
+    }
+
 }
