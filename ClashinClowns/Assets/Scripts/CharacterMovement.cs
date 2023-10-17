@@ -59,22 +59,5 @@ public class CharacterMovement : MonoBehaviour
             characterTransform.localScale = newScale;
         }
 
-        if (rb.velocity.x > 0f)
-        {
-            Debug.Log("Character flipped");
-            FlipCharacter();
-        }
     }
-
-<<<<<<< HEAD
-=======
-    private void FlipCharacter()
-    {
-        //facingRight = !facingRight;
-        //spriteRenderer.flipX = !spriteRenderer.flipX;
-        
-           
-    }
-
->>>>>>> b8eb711ea4c676de67dffe98615b9f25a737e938
 }
