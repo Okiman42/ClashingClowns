@@ -36,7 +36,7 @@ public class CharacterAttack : MonoBehaviour
 
         // Play the attack animation by setting the "Attack" trigger.
        // myAnimator.SetTrigger("Attackswipe");
-        myAnimator.Play("Attackswipe");
+        myAnimator.Play("attack");
 
         Vector2 attackDirection = (myTag == "Character2") ? Vector2.left : Vector2.right;
 
