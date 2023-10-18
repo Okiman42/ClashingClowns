@@ -59,7 +59,10 @@ public class CharacterMovement : MonoBehaviour
             characterTransform.localScale = newScale;
         }
 
+
        
     }
 
+
+    
 }

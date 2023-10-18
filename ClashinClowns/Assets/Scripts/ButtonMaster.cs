@@ -12,7 +12,7 @@ public class ButtonMaster : MonoBehaviour
 
     public void Mainmenu()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Tab))
             SceneManager.LoadScene(0);
     }
 
