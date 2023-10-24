@@ -56,6 +56,9 @@ public class CharacterAttack : MonoBehaviour
             //Set cooldown
             deltaTimeSinceAttack = 0.0f;
             canAttack = false;
+            /*Vfx1.SetActive(false);
+            Vfx2.SetActive(false);*/
+            
         }
 
         if (!canAttack)
@@ -65,7 +68,7 @@ public class CharacterAttack : MonoBehaviour
             if (deltaTimeSinceAttack >= cooldownAttack)
             {
                 canAttack = true;
-                VfxBlood.SetActive(false);
+                
             }
         }
 
@@ -122,14 +125,14 @@ public class CharacterAttack : MonoBehaviour
         {
             //Debug.Log("can attack");
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && canAttack)
             {
                 Vfx1.SetActive(true);
                 Debug.Log("player 1 particle");
                 
             }
 
-            if (Input.GetKeyDown(KeyCode.RightControl))
+            if (Input.GetKeyDown(KeyCode.RightControl) && canAttack)
             {
                 Vfx2.SetActive(true);
                 Debug.Log("player 2 particle");
