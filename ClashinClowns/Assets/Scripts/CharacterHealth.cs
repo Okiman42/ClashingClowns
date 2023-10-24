@@ -7,11 +7,17 @@ public class CharacterHealth : MonoBehaviour
     public int maxHealth = 3; // Adjust this to set the maximum health for each character.
     public int damageAmount = 1; // Adjust this to set the damage amount per hit.
 
+    //[SerializeField] GameObject VfxBlood;
+
     [SerializeField] private int currentHealth;
+    //[SerializeField] GameObject VfxBlood;
 
     private void Start()
     {
+        //VfxBlood.SetActive(false);
+
         currentHealth = maxHealth;
+        //VfxBlood.SetActive(false);
     }
 
     // Function to deal damage to the character.
@@ -34,4 +40,15 @@ public class CharacterHealth : MonoBehaviour
         Destroy(gameObject);
         // Optionally, you can respawn the character or perform other actions as needed.
     }
+
+   /* private void OnCollisionEnter(Collision collision)
+    {
+        string objectTag = gameObject.tag;
+
+        if (collision.gameObject.CompareTag(objectTag))
+        {
+            VfxBlood.SetActive(true);
+            Debug.Log("collision " + objectTag);
+        }
+    }*/
 }
