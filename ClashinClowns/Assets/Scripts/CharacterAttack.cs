@@ -18,7 +18,7 @@ public class CharacterAttack : MonoBehaviour
     private bool canAttack = true;
     private float deltaTimeSinceAttack = 0.0f;
 
-    //GameObject attackButton = KeyCode;
+ 
     public KeyCode keytoset;
 
     private void Start()
@@ -108,10 +108,13 @@ public class CharacterAttack : MonoBehaviour
                     {
                         enemyHealth.TakeDamage();
 
-                        Debug.Log("blood cum");
+                        Debug.Log("blood ");
                         VfxBlood.SetActive(true);
+
+                        
                     }
-                    
+
+                   
                 }
                      
             }
