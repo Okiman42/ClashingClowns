@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +10,33 @@ public class CharacterAttack : MonoBehaviour
     private string myTag; // Store the tag of the current character.
     private Animator myAnimator; // Reference to the Animator component.
 
+    [SerializeField] GameObject Vfx1;
+    [SerializeField] GameObject Vfx2;
+    [SerializeField] GameObject VfxBlood;
+
+    public float cooldownAttack = 1.0f;
+    private bool canAttack = true;
+    private float deltaTimeSinceAttack = 0.0f;
+
+ 
+    public KeyCode keytoset;
+
     private void Start()
     {
         myTag = gameObject.tag; // Get the tag of the current character.
 
         myAnimator = GetComponent<Animator>(); // Get the Animator component
+
+        Vfx1.SetActive(false);
+        Vfx2.SetActive(false);
+        VfxBlood.SetActive(false);
     }
 
     private void Update()
     {
+        Particles();
+        
+
         if (gameObject.tag == "Character1" && Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
@@ -28,7 +47,35 @@ public class CharacterAttack : MonoBehaviour
         {
             Attack();
         }
+
+        if (Input.GetKeyDown(keytoset) && canAttack)
+        {
+
+            Debug.Log("has pressed and can attack");
+
+            //Set cooldown
+            deltaTimeSinceAttack = 0.0f;
+            canAttack = false;
+            /*Vfx1.SetActive(false);
+            Vfx2.SetActive(false);*/
+            
+        }
+
+        if (!canAttack)
+        {
+            deltaTimeSinceAttack += Time.deltaTime;
+
+            if (deltaTimeSinceAttack >= cooldownAttack)
+            {
+                canAttack = true;
+                
+            }
+        }
+
     }
+
+
+
 
     // Function to perform the character's attack.
     private void Attack()
@@ -36,7 +83,7 @@ public class CharacterAttack : MonoBehaviour
 
         // Play the attack animation by setting the "Attack" trigger.
        // myAnimator.SetTrigger("Attackswipe");
-        myAnimator.Play("attack");
+        //myAnimator.Play("attack");
 
         Vector2 attackDirection = (myTag == "Character2") ? Vector2.left : Vector2.right;
 
@@ -54,11 +101,62 @@ public class CharacterAttack : MonoBehaviour
                 // Get the CharacterHealth component of the hit character and deal damage to them.
                 CharacterHealth enemyHealth = hit.collider.GetComponent<CharacterHealth>();
 
-                if (enemyHealth != null)
+                if (canAttack)
                 {
-                    enemyHealth.TakeDamage();
+
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage();
+
+                        Debug.Log("blood ");
+                        VfxBlood.SetActive(true);
+
+                        
+                    }
+
+                   
                 }
+                     
             }
         }
     }
+
+
+    void Particles()
+    {
+        if (true)
+        {
+            //Debug.Log("can attack");
+
+            if (Input.GetKeyDown(KeyCode.Space) && canAttack)
+            {
+                Vfx1.SetActive(true);
+                Debug.Log("player 1 particle");
+                
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightControl) && canAttack)
+            {
+                Vfx2.SetActive(true);
+                Debug.Log("player 2 particle");
+                
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                Vfx1.SetActive(false);
+                //Debug.Log("player 1 particle up");
+            }
+
+            if (Input.GetKeyUp(KeyCode.RightControl))
+            {
+                Vfx2.SetActive(false);
+                //Debug.Log("player 2 particle up");
+            }
+
+        }
+        
+    }
+
+  
 }
