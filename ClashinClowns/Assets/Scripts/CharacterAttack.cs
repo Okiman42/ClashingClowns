@@ -14,8 +14,10 @@ public class CharacterAttack : MonoBehaviour
     [SerializeField] GameObject Vfx2;
     [SerializeField] GameObject VfxBlood;
 
-    public float cooldownAttack = 1.0f;
-    private bool canAttack = true;
+    ParticleSystem bloodParticles;
+
+    public float cooldownAttack = 0.5f;
+    private bool canAttack;
     private float deltaTimeSinceAttack = 0.0f;
 
  
@@ -27,9 +29,13 @@ public class CharacterAttack : MonoBehaviour
 
         myAnimator = GetComponent<Animator>(); // Get the Animator component
 
-        Vfx1.SetActive(false);
-        Vfx2.SetActive(false);
-        VfxBlood.SetActive(false);
+        canAttack = true;
+
+        //Vfx1.SetActive(false);
+        //Vfx2.SetActive(false);
+        //VfxBlood.SetActive(false);
+
+            bloodParticles = VfxBlood.GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -40,6 +46,7 @@ public class CharacterAttack : MonoBehaviour
         if (gameObject.tag == "Character1" && Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
+            
         }
 
         // For Player 2 (Character2)
@@ -51,7 +58,7 @@ public class CharacterAttack : MonoBehaviour
         if (Input.GetKeyDown(keytoset) && canAttack)
         {
 
-            Debug.Log("has pressed and can attack");
+            Debug.Log("did attck");
 
             //Set cooldown
             deltaTimeSinceAttack = 0.0f;
@@ -68,6 +75,7 @@ public class CharacterAttack : MonoBehaviour
             if (deltaTimeSinceAttack >= cooldownAttack)
             {
                 canAttack = true;
+                Debug.LogWarning("Cooldown done");
                 
             }
         }
@@ -91,6 +99,16 @@ public class CharacterAttack : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, attackDirection, 1f, targetLayer);
         
 
+        // Attack Particles
+        if (gameObject.tag == "Character1" && canAttack)
+        {
+            Vfx1.GetComponent<ParticleSystem>().Play();
+        }
+        if (gameObject.tag == "Character2" && canAttack)
+        {
+            Vfx2.GetComponent<ParticleSystem>().Play();
+        }
+
         if (hit.collider != null)
         {
             // Get the tag of the hit character and compare it with the current character's tag.
@@ -104,13 +122,17 @@ public class CharacterAttack : MonoBehaviour
                 if (canAttack)
                 {
 
+                    
+
                     if (enemyHealth != null)
                     {
                         enemyHealth.TakeDamage();
 
-                        Debug.Log("blood ");
-                        VfxBlood.SetActive(true);
+                        //VfxBlood.SetActive(true);
 
+                        bloodParticles.Play();
+                        
+                        Debug.Log("blood ");
                         
                     }
 
@@ -124,33 +146,34 @@ public class CharacterAttack : MonoBehaviour
 
     void Particles()
     {
-        if (true)
+        //if (true)
         {
             //Debug.Log("can attack");
-
+            Debug.LogWarning(canAttack);
             if (Input.GetKeyDown(KeyCode.Space) && canAttack)
             {
-                Vfx1.SetActive(true);
+                Debug.LogWarning(canAttack);
+                //Vfx1.SetActive(true);
                 Debug.Log("player 1 particle");
                 
             }
 
             if (Input.GetKeyDown(KeyCode.RightControl) && canAttack)
             {
-                Vfx2.SetActive(true);
+               // Vfx2.SetActive(true);
                 Debug.Log("player 2 particle");
                 
             }
 
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                Vfx1.SetActive(false);
+                //Vfx1.SetActive(false);
                 //Debug.Log("player 1 particle up");
             }
 
             if (Input.GetKeyUp(KeyCode.RightControl))
             {
-                Vfx2.SetActive(false);
+                //Vfx2.SetActive(false);
                 //Debug.Log("player 2 particle up");
             }
 

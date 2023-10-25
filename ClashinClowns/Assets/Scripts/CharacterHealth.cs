@@ -16,6 +16,8 @@ public class CharacterHealth : MonoBehaviour
     {
         //VfxBlood.SetActive(false);
 
+        
+
         currentHealth = maxHealth;
         //VfxBlood.SetActive(false);
     }
@@ -23,7 +25,9 @@ public class CharacterHealth : MonoBehaviour
     // Function to deal damage to the character.
     public void TakeDamage()
     {
+
         currentHealth -= damageAmount;
+
 
         if (currentHealth <= 0)
         {
