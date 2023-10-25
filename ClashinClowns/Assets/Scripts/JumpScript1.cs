@@ -2,30 +2,35 @@ using UnityEngine;
 
 public class JumpScript1 : MonoBehaviour
 {
-    [SerializeField] private float jumpingPower;
+    public float jumpForce = 10f;
+    public bool isGrounded;
+    public Vector2 jump;
+    
+    private Rigidbody2D rb;
 
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-
-    void Update()
+    private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
 
-        if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        }
-
-        if (Input.GetKeyDown(KeyCode.W) && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
-
-
+        jump = new Vector2(0.0f, 1.0f);
     }
 
-    private bool IsGrounded()
+    void OnCollisionStay2D()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        isGrounded = true;
+    }
+    void OnCollisionExit2D()
+    {
+        isGrounded = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        {
+
+            GetComponent<Rigidbody2D>().AddForce(jump * jumpForce, ForceMode2D.Impulse);
+            isGrounded = false;
+        }
     }
 }
